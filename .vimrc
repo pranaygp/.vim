@@ -19,13 +19,15 @@ set expandtab
 let mapleader=","
 
 noremap <Leader>n :NERDTreeToggle<CR>
+noremap <Leader>m :TagbarToggle<CR>
 
 autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
 autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
 autocmd FileType jade setlocal shiftwidth=2 softtabstop=2
+autocmd FileType go setlocal shiftwidth=0 softtabstop=0 noexpandtab
 
 " For CS 233
-autocmd FileType asm setlocal softtabstop=0 noexpandtab
+autocmd FileType asm setlocal shiftwidth=0 softtabstop=0 noexpandtab
 
 command Markdown new | set ft=html | execute 'r !~/.vim/Markdown.pl ' . shellescape(expand('#')) | 1d
 command Trigraphs %s/#/??=/ge | %s/\\/??\//ge | %s/\^/??'/ge | %s/\[/??(/ge | %s/\]/??)/ge | %s/|/??!/ge | %s/{/??</ge | %s/}/??>/ge | %s/\~/??-/ge
@@ -48,4 +50,12 @@ set mouse=a
 " Fix syntax highlighting for long files
 autocmd BufEnter * :syntax sync fromstart
 
-let g:ctrlp_custom_ignore = 'node_modules\|venv'
+let g:ctrlp_custom_ignore = 'node_modules\|venv\|MathJax'
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
